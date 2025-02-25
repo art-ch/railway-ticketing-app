@@ -1,10 +1,11 @@
 import { z } from 'zod';
-import { seatNumberSchema } from './seat.model';
+import { TrainSchema } from './train.model';
+import { SeatSchema } from './seat.model';
 
 export const BookingSchema = z.object({
   bookingId: z.string().uuid(),
-  trainId: z.string().uuid(),
-  seatNumber: seatNumberSchema,
+  trainId: TrainSchema.shape.trainId,
+  seatNumber: SeatSchema.shape.seatNumber,
   passengerDetails: z.object({
     name: z.string().min(1),
     email: z.string().email(),

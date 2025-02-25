@@ -4,7 +4,12 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "bootstrap": "cdk bootstrap",
+    "deploy": "npm run build && cdk deploy",
+    "destroy": "cdk destroy",
+    "diff": "cdk diff",
+    "seed": "ts-node scripts/seed-trains.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +18,14 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.751.0",
     "@aws-sdk/client-lambda": "^3.750.0",
+    "@aws-sdk/lib-dynamodb": "^3.751.0",
+    "@middy/core": "^6.0.0",
+    "@middy/do-not-wait-for-empty-event-loop": "^6.0.0",
+    "@middy/http-event-normalizer": "^6.0.0",
+    "@middy/http-header-normalizer": "^6.0.0",
+    "@middy/http-json-body-parser": "^6.0.0",
+    "@middy/http-response-serializer": "^6.0.0",
+    "@middy/http-urlencode-path-parser": "^6.0.0",
     "aws-cdk-lib": "^2.180.0",
     "aws-sdk": "^2.1692.0",
     "constructs": "^10.4.2",
@@ -23,6 +36,9 @@
     "@types/aws-lambda": "^8.10.147",
     "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.4",
+    "aws-cdk": "^2.1000.3",
+    "esbuild": "^0.25.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
 }
