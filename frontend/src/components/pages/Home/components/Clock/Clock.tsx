@@ -1,3 +1,4 @@
+import { getFormattedTime } from '@/utils/formatters';
 import React, { useEffect, useState } from 'react';
 
 export const Clock = () => {
@@ -11,11 +12,7 @@ export const Clock = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const formattedTime = time.toLocaleTimeString('en-US', {
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  const formattedTime = getFormattedTime(time);
 
   return (
     <div className="clock">

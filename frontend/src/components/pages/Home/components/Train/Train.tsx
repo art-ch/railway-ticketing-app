@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Train as TrainType } from '@/models';
 import Link from 'next/link';
+import { getFormattedTime } from '@/utils/formatters';
 
 export type TrainProps = { train: TrainType };
 
@@ -17,23 +18,8 @@ export const Train = ({ train }: TrainProps) => {
     arrivalTime
   } = train;
 
-  const formattedDepartureTime = new Date(departureTime).toLocaleTimeString(
-    'en-US',
-    {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    }
-  );
-
-  const formattedArrivalTime = new Date(arrivalTime).toLocaleTimeString(
-    'en-US',
-    {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    }
-  );
+  const formattedDepartureTime = getFormattedTime(new Date(departureTime));
+  const formattedArrivalTime = getFormattedTime(new Date(arrivalTime));
 
   return (
     <Link

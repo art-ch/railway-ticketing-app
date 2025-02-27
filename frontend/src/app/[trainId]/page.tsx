@@ -7,9 +7,12 @@ export type TrainPageProps = { params: { trainId: string } };
 export async function generateMetadata({
   params
 }: TrainPageProps): Promise<Metadata> {
+  // await is required here. Details at https://nextjs.org/docs/messages/sync-dynamic-apis
+  const { trainId } = await params;
+
   return {
-    title: `Train | ${params.trainId}`,
-    description: `Information about train ${params.trainId}`
+    title: `Train | ${trainId}`,
+    description: `Information about train ${trainId}`
   };
 }
 export default async function TrainPage({ params }: TrainPageProps) {
