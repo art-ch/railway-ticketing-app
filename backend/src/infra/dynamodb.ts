@@ -10,5 +10,9 @@ export const getDynamoDBClient = memoize(
 );
 
 export const getDynamoDBDocClient = memoize(() =>
-  DynamoDBDocument.from(getDynamoDBClient())
+  DynamoDBDocument.from(getDynamoDBClient(), {
+    marshallOptions: {
+      removeUndefinedValues: true
+    }
+  })
 );

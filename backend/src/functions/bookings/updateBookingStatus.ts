@@ -1,4 +1,3 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import {
   GetBookingDto,
   UpdateBookingStatusDto
@@ -8,8 +7,9 @@ import { HttpError } from '../../infra/errors';
 import { changeBookingStatus } from '../../core/booking';
 import { respondOk } from '../../infra/http/utils';
 import jsonBodyParser from '@middy/http-json-body-parser';
+import { APIGatewayHandler } from '../../infra/http/types';
 
-export const updateBookingStatus: APIGatewayProxyHandler = async ({
+export const updateBookingStatus: APIGatewayHandler = async ({
   pathParameters,
   body
 }) => {
@@ -21,7 +21,7 @@ export const updateBookingStatus: APIGatewayProxyHandler = async ({
   }
 
   const { bookingId } = GetBookingDto.parse(pathParameters || {});
-  const { status } = UpdateBookingStatusDto.parse(JSON.parse(body));
+  const { status } = UpdateBookingStatusDto.parse(body);
 
   const booking = await changeBookingStatus(bookingId, status);
 

@@ -1,11 +1,11 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import { findTrainById } from '../../core/trains';
 import { HttpError } from '../../infra/errors';
 import { GetTrainDto } from '../../core/dto/trains.dto';
 import { respondOk } from '../../infra/http/utils';
 import { middyApiGateway } from '../../infra/http/middy';
+import { APIGatewayHandler } from '../../infra/http/types';
 
-export const getTrain: APIGatewayProxyHandler = async ({ pathParameters }) => {
+export const getTrain: APIGatewayHandler = async ({ pathParameters }) => {
   const { trainId } = GetTrainDto.parse(pathParameters || {});
 
   const train = await findTrainById(trainId);

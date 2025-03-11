@@ -81,10 +81,16 @@ export class RailwayTicketingApiConstruct extends Construct {
 
     // Permissions
     trainsTable.grantReadData(getTrainFunction);
+
     trainsTable.grantReadData(listTrainsFunction);
+
     bookingsTable.grantWriteData(createBookingFunction);
+    trainsTable.grantReadWriteData(createBookingFunction);
+
     bookingsTable.grantReadData(getBookingFunction);
+
     bookingsTable.grantReadWriteData(updateBookingStatusFunction);
+    trainsTable.grantReadWriteData(updateBookingStatusFunction);
 
     // API Gateway
     const api = new apigateway.RestApi(this, 'RailwayApi');

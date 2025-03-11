@@ -1,4 +1,3 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import jsonBodyParser from '@middy/http-json-body-parser';
 
 import { addBooking } from '../../core/booking';
@@ -6,8 +5,9 @@ import { middyApiGateway } from '../../infra/http/middy';
 import { HttpError } from '../../infra/errors';
 import { CreateBookingDto } from '../../core/dto/bookings.dto';
 import { respondOk } from '../../infra/http/utils';
+import { APIGatewayHandler } from '../../infra/http/types';
 
-export const createBooking: APIGatewayProxyHandler = async ({ body }) => {
+export const createBooking: APIGatewayHandler = async ({ body }) => {
   if (!body) {
     throw new HttpError({
       statusCode: 400,
@@ -15,7 +15,7 @@ export const createBooking: APIGatewayProxyHandler = async ({ body }) => {
     });
   }
 
-  const bookingData = CreateBookingDto.parse(JSON.parse(body));
+  const bookingData = CreateBookingDto.parse(body);
   const booking = await addBooking(bookingData);
 
   return respondOk(booking);

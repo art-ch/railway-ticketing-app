@@ -4,13 +4,13 @@ export const respondError = (
   meta?: unknown
 ) => ({
   statusCode,
-  body: JSON.stringify({
+  body: {
     errors,
     meta
-  })
+  }
 });
 
 export const respondOk = (data: unknown) => ({
   statusCode: 200,
-  body: JSON.stringify({ data })
+  body: { data }
 });

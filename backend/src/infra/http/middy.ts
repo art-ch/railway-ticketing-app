@@ -4,10 +4,10 @@ import httpEventNormalizer from '@middy/http-event-normalizer';
 import httpHeaderNormalizer from '@middy/http-header-normalizer';
 import httpResponseSerializer from '@middy/http-response-serializer';
 import httpUrlencodePathParametersParser from '@middy/http-urlencode-path-parser';
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import { ZodError } from 'zod';
 import { HttpError } from '../errors';
 import { respondError } from './utils';
+import { APIGatewayHandler } from './types';
 
 const httpErrorHandler = (): MiddlewareObj => ({
   onError: (request) => {
@@ -48,7 +48,7 @@ const httpErrorHandler = (): MiddlewareObj => ({
   }
 });
 
-export const middyApiGateway = (handler: APIGatewayProxyHandler) => {
+export const middyApiGateway = (handler: APIGatewayHandler) => {
   return middy(handler)
     .use(doNotWaitForEmptyEventLoop())
     .use(httpEventNormalizer())
