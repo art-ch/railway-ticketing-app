@@ -7,9 +7,9 @@ export const fetchTrain = async (
   try {
     const response = await axiosInstance.get(`/trains/${trainId}`);
 
-    return JSON.parse(response.data).data || null;
+    return response.data.data || null;
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return null;
   }

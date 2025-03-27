@@ -93,7 +93,14 @@ export class RailwayTicketingApiConstruct extends Construct {
     trainsTable.grantReadWriteData(updateBookingStatusFunction);
 
     // API Gateway
-    const api = new apigateway.RestApi(this, 'RailwayApi');
+    const api = new apigateway.RestApi(this, 'RailwayApi', {
+      defaultCorsPreflightOptions: {
+        allowOrigins: ['http://localhost:3000'],
+        allowMethods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
+        allowHeaders: ['Content-Type', 'Authorization'],
+        allowCredentials: true
+      }
+    });
 
     // Train endpoints
     const trains = api.root.addResource('trains');

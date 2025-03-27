@@ -1,42 +1,33 @@
+'use client';
+
 import React from 'react';
 
-import { Train as TrainType } from '@/models';
 import { Seat } from './components/Seat/Seat';
-import { getFormattedTime } from '@/utils/formatters';
+import { useTrainPageContext } from '@/app/[trainId]/context';
+import { WideScreenDemoNotice } from '@/components/WideScreenDemoNotice/WideScreenDemoNotice';
+import { useBreakpoint } from '@/hooks/useBreakpoint/useBreakpoint';
 
-export type TrainProps = { trainInfo: TrainType | null };
+export const Train = () => {
+  const { trainData: trainInfo } = useTrainPageContext();
 
-export const Train = ({ trainInfo }: TrainProps) => {
+  const breakPoint = useBreakpoint();
+
+  if (!breakPoint.xl) {
+    return <WideScreenDemoNotice />;
+  }
+
   if (!trainInfo) {
     return <div>Train not found</div>;
   }
 
-  const {
-    departureStation,
-    arrivalStation,
-    departureTime,
-    name,
-    trainType,
-    seats
-  } = trainInfo;
+  const { seats, trainId } = trainInfo;
 
   return (
     <main>
-      <div className="w-full border-b border-slate-300 p-2">
-        <h1>
-          {departureStation} → {arrivalStation},{' '}
-          {getFormattedTime(new Date(departureTime))}
-        </h1>
-
-        <div className="flex gap-2">
-          <div>{name}</div>
-          <div>{trainType}</div>
-        </div>
-      </div>
       <div className="h-[calc(100vh-66px)] flex items-center justify-center">
         <div className="border border-slate-300 rounded-xl p-7 grid grid-cols-5 gap-x-7 gap-y-10">
           {seats.map((seat) => (
-            <Seat key={seat.seatNumber} seat={seat} />
+            <Seat key={seat.seatNumber} trainId={trainId} seat={seat} />
           ))}
         </div>
       </div>

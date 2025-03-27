@@ -8,6 +8,7 @@ import { EmbeddedDisplay } from './components/EmbeddedDisplay/EmbeddedDisplay';
 import { Clock } from './components/Clock/Clock';
 import { Train } from './components/Train/Train';
 import { Train as TrainType } from '@/models';
+import { WideScreenDemoNotice } from '@/components/WideScreenDemoNotice/WideScreenDemoNotice';
 
 export type HomeProps = { trainList: TrainType[] };
 
@@ -15,7 +16,7 @@ export const Home = ({ trainList }: HomeProps) => {
   const breakPoint = useBreakpoint();
 
   if (!breakPoint.xl) {
-    return null;
+    return <WideScreenDemoNotice />;
   }
 
   return (

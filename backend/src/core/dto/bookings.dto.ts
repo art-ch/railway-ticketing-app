@@ -3,7 +3,7 @@ import { TrainSchema, BookingSchema } from '../models';
 
 export const CreateBookingDto = z.object({
   trainId: TrainSchema.shape.trainId,
-  seatNumber: BookingSchema.shape.seatNumber,
+  seatNumber: BookingSchema.shape.seatNumber.refine((value) => Number(value)),
   passengerDetails: BookingSchema.shape.passengerDetails
 });
 

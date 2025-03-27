@@ -5,9 +5,9 @@ export const fetchTrainList = async (): Promise<Train[]> => {
   try {
     const response = await axiosInstance.get('/trains');
 
-    return JSON.parse(response.data).data || [];
+    return response.data.data || [];
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return [];
   }
