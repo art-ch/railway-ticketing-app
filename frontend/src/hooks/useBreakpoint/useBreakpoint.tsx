@@ -10,7 +10,7 @@ export enum Breakpoint {
 
 type BreakpointValues = { [key in Breakpoint]: number };
 
-type BreakpointState = {
+export type BreakpointState = {
   [key in Breakpoint]: boolean;
 };
 

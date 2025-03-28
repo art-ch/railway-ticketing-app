@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home component should demo notice for small screen 1`] = `
+<div>
+  <div>
+    This demo is intended to be shown on desktop
+  </div>
+</div>
+`;
+
+exports[`Home component should render correctly 1`] = `
+<div>
+  <main
+    class="min-w-screen min-h-screen bg-slate-50 flex items-center justify-center"
+  >
+    <article
+      class="w-[calc(100vw-250px)] h-[calc(100vh-50px)]"
+    >
+      <div
+        class="w-full h-full shadow-[10px_10px_80px_0px_grey] border-[15px] border-slate-200"
+      >
+        <div
+          class="w-full h-full border-[3px] border-slate-400"
+        >
+          <div
+            class="w-full h-full bg-zinc-900 flex flex-col gap-5"
+          >
+            <div
+              class="flex justify-between relative"
+            >
+              <div
+                class="border-[8px] border-slate-200"
+              >
+                <div
+                  class="min-w-30 min-h-full border-[4px] border-slate-400"
+                >
+                  <div
+                    class="text-white text-5xl p-3 font-dot-matrix font-bold"
+                  >
+                    2025-03-28
+                  </div>
+                </div>
+              </div>
+              <h1
+                class="text-amber-300 text-5xl font-bold tracking-widest absolute top-7 left-[37%]"
+              >
+                Train Schedule
+              </h1>
+              <div
+                class="border-[8px] border-slate-200"
+              >
+                <div
+                  class="min-w-30 min-h-full border-[4px] border-slate-400"
+                >
+                  <div
+                    class="text-white text-5xl p-3 font-dot-matrix font-bold"
+                  >
+                    <div>
+                      Clock
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="text-amber-300 font-bold tracking-widest px-3 text-xl grid grid-cols-[1fr_250px_250px_150px_150px]"
+            >
+              <div>
+                Train Firm Name
+              </div>
+              <div>
+                From
+              </div>
+              <div>
+                To
+              </div>
+              <div>
+                Arrival
+              </div>
+              <div>
+                Departure
+              </div>
+            </div>
+            <div
+              class="w-full h-full overflow-y-scroll scrollbar-hidden relative"
+            >
+              <a
+                class="text-white text-3xl p-3 font-dot-matrix font-bold grid grid-cols-[1fr_250px_250px_150px_150px] hover:bg-amber-300 hover:text-black hover:font-extrabold hover:cursor-pointer"
+                href="/1"
+                target="blank"
+              >
+                <div />
+                <div />
+                <div />
+                <div>
+                  12:00
+                </div>
+                <div>
+                  12:00
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</div>
+`;

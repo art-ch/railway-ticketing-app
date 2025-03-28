@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Train component should demo notice for small screen 1`] = `
+<div>
+  <div>
+    This demo is intended to be shown on desktop
+  </div>
+</div>
+`;
+
+exports[`Train component should render correctly 1`] = `
+<div>
+  <main>
+    <div
+      class="h-[calc(100vh-66px)] flex items-center justify-center"
+    >
+      <div
+        class="border border-slate-300 rounded-xl p-7 grid grid-cols-5 gap-x-7 gap-y-10"
+      >
+        <a
+          class="border border-slate-300 rounded-sm p-1 text-center text-5xl cursor-pointer  text-white bg-emerald-800"
+          href="/1/1"
+        >
+          1
+        </a>
+      </div>
+    </div>
+  </main>
+</div>
+`;
