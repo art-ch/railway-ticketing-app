@@ -11,8 +11,7 @@ import { CancelBookingButton } from './components/CancelBookingButton/CancelBook
 import { toast } from 'sonner';
 import { useBookingPageContext } from '@/app/[trainId]/[seatNumber]/context/context';
 import { BookingDataSkeleton } from './components/BookingDataSkeleton/BookingDataSkeleton';
-import { useBreakpoint } from '@/hooks/useBreakpoint/useBreakpoint';
-import { WideScreenDemoNotice } from '@/components/WideScreenDemoNotice/WideScreenDemoNotice';
+import { DemoWrapper } from '@/components/DemoWrapper/DemoWrapper';
 
 export type BookingProps = {
   seatNumber: string;
@@ -21,12 +20,6 @@ export type BookingProps = {
 export const Booking = ({ seatNumber }: BookingProps) => {
   const { bookingData, isBookingLoading, updateBooking } =
     useBookingPageContext();
-
-  const breakPoint = useBreakpoint();
-
-  if (!breakPoint.xl) {
-    return <WideScreenDemoNotice />;
-  }
 
   // Success callbacks
   const handleBookingSuccess = (newBookingData: BookingType) => {
@@ -85,12 +78,14 @@ export const Booking = ({ seatNumber }: BookingProps) => {
   };
 
   return (
-    <main className="h-[calc(100vh-66px)] flex flex-col items-center justify-center">
-      <div className="relative bg-amber-50 shadow p-4">
-        <Header bookingId={bookingData?.bookingId} />
-        <TrainInfo />
-        {renderBookingInfo()}
-      </div>
-    </main>
+    <DemoWrapper>
+      <main className="h-[calc(100vh-66px)] flex flex-col items-center justify-center">
+        <div className="relative bg-amber-50 shadow p-4">
+          <Header bookingId={bookingData?.bookingId} />
+          <TrainInfo />
+          {renderBookingInfo()}
+        </div>
+      </main>
+    </DemoWrapper>
   );
 };
