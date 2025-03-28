@@ -1,8 +1,8 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
 
-import { Train } from '@/models';
 import { SetState } from '@/types/types';
+import { Train } from 'railway-ticketing-app-sdk';
 
 export type TrainPageData = Train | null;
 

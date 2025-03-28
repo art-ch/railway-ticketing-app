@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PassengerDetails } from '@/models/passengerDetails.model';
+import { PassengerDetails } from 'railway-ticketing-app-sdk';
 
 export type PassengerInfoProps = { passengerInfo: PassengerDetails };
 

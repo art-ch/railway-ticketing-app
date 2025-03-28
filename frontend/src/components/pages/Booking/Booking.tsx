@@ -4,7 +4,7 @@ import React from 'react';
 import { CreateBookingForm } from './components/CreateBookingForm/CreateBookingForm';
 import { Header } from './components/Header/Header';
 import { TrainInfo } from './components/TrainInfo/TrainInfo';
-import { Booking as BookingType } from '@/models';
+import { Booking as BookingType } from 'railway-ticketing-app-sdk';
 import { BookingInfo } from './components/BookingInfo/BookingInfo';
 import { PassengerInfo } from './components/PassengerInfo/PassengerInfo';
 import { CancelBookingButton } from './components/CancelBookingButton/CancelBookingButton';

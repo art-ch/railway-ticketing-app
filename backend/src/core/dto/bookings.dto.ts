@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TrainSchema, BookingSchema } from '../models';
+import { TrainSchema, BookingSchema } from 'railway-ticketing-app-sdk';
 
 export const CreateBookingDto = z.object({
   trainId: TrainSchema.shape.trainId,

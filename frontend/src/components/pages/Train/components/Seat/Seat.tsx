@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Seat as SeatType } from '@/models';
+import { Seat as SeatType } from 'railway-ticketing-app-sdk';
 import Link from 'next/link';
 
 export type Props = { trainId: string; seat: SeatType };

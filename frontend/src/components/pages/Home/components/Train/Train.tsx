@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Train as TrainType } from '@/models';
+import { Train as TrainType } from 'railway-ticketing-app-sdk';
 import Link from 'next/link';
 import { getFormattedTime } from '@/utils/formatters';
 

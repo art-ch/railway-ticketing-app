@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Booking as BookingType } from '@/models';
+import { Booking as BookingType } from 'railway-ticketing-app-sdk';
 import { Button } from '@/components/ui/button';
 import { axiosInstance } from '@/api/axios/axios';
 import { LoaderCircle, TicketX as TicketXIcon } from 'lucide-react';

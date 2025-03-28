@@ -7,7 +7,7 @@ import { TrainScheduleDisplay } from './components/TrainScheduleDisplay/TrainSch
 import { EmbeddedDisplay } from './components/EmbeddedDisplay/EmbeddedDisplay';
 import { Clock } from './components/Clock/Clock';
 import { Train } from './components/Train/Train';
-import { Train as TrainType } from '@/models';
+import { Train as TrainType } from 'railway-ticketing-app-sdk';
 import { WideScreenDemoNotice } from '@/components/WideScreenDemoNotice/WideScreenDemoNotice';
 
 export type HomeProps = { trainList: TrainType[] };

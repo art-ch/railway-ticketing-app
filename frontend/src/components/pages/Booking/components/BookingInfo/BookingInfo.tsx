@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Booking as BookingType } from '@/models';
+import { Booking as BookingType } from 'railway-ticketing-app-sdk';
 import { getFormattedDateTime } from '@/utils/formatters';
 
 export type BookingInfoProps = { bookingInfo: BookingType };

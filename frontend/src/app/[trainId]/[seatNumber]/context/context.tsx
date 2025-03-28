@@ -8,7 +8,7 @@ import {
   useState
 } from 'react';
 import { useTrainPageContext } from '../../context';
-import { Booking as BookingType } from '@/models';
+import { Booking as BookingType } from 'railway-ticketing-app-sdk';
 import { axiosInstance } from '@/api/axios/axios';
 
 /** Using `undefined` as initial state to indicate "not yet fetched" */

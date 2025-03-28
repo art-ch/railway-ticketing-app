@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/api/axios/axios';
-import { Train } from '@/models';
+import { Train } from 'railway-ticketing-app-sdk';
 
 export const fetchTrain = async (
   trainId: Train['trainId']

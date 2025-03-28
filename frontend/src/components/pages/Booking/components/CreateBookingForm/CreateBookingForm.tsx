@@ -19,10 +19,10 @@ import { useForm } from 'react-hook-form';
 import {
   PassengerDetails,
   PassengerDetailsSchema
-} from '@/models/passengerDetails.model';
+} from 'railway-ticketing-app-sdk';
 import { useTrainPageContext } from '@/app/[trainId]/context';
 import { axiosInstance } from '@/api/axios/axios';
-import { Booking as BookingType } from '@/models';
+import { Booking as BookingType } from 'railway-ticketing-app-sdk';
 import { CREATE_BOOKING_FORM_FIELD_CONFIG } from './CreateBookingForm.config';
 
 export type CreateBookingFormProps = {

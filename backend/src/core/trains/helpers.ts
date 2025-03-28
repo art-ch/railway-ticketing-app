@@ -1,4 +1,4 @@
-import { Seat } from '../models';
+import { Seat } from 'railway-ticketing-app-sdk';
 
 export type UpdateSeatStatusProps = {
   seats: Seat[];

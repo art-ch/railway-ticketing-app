@@ -1,4 +1,4 @@
-import { PassengerDetails } from '@/models/passengerDetails.model';
+import { PassengerDetails } from 'railway-ticketing-app-sdk';
 
 export const CREATE_BOOKING_FORM_FIELD_CONFIG: {
   name: keyof PassengerDetails;

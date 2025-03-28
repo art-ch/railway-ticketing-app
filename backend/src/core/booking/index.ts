@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Booking, BookingSchema } from '../models';
+import { Booking, BookingSchema } from 'railway-ticketing-app-sdk';
 import { findTrainById, updateTrain } from '../trains';
 import { getDynamoDBDocClient } from '../../infra/dynamodb';
 import { updateSeatStatus } from '../trains/helpers';

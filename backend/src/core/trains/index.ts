@@ -1,4 +1,4 @@
-import { Train, TrainSchema } from '../models';
+import { Train, TrainSchema } from 'railway-ticketing-app-sdk';
 import { getDynamoDBDocClient } from '../../infra/dynamodb';
 
 const TABLE_NAME = 'TrainsTable';
