@@ -1,7 +1,27 @@
 {
   "branches": ["master"],
   "plugins": [
-    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": [
+          { "breaking": true, "release": "major" },
+          { "scope": "sdk", "type": "feat", "release": "minor" },
+          { "scope": "sdk", "type": "fix", "release": "patch" },
+          { "scope": "sdk", "type": "perf", "release": "patch" },
+          { "scope": "sdk", "type": "revert", "release": "patch" },
+          { "scope": "sdk", "type": "docs", "release": "patch" },
+          { "scope": "sdk", "type": "style", "release": "patch" },
+          { "scope": "sdk", "type": "refactor", "release": "patch" },
+          { "scope": "sdk", "type": "test", "release": "patch" },
+          { "scope": "sdk", "type": "build", "release": "patch" },
+          { "scope": "sdk", "type": "ci", "release": "patch" },
+          { "scope": "sdk", "type": "chore", "release": "patch" },
+          { "scope": "*", "release": false }
+        ]
+      }
+    ],
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     "@semantic-release/npm",
