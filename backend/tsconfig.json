@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
+    "isolatedModules": true,
     "target": "es2022",
     "module": "commonjs",
     "strict": true,

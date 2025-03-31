@@ -1,0 +1,1642 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RailwayTicketingStack Stack snapshot 1`] = `
+{
+  "Outputs": {
+    "RailwayApiEndpointD78E13FB": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "RailwayApiAE06EA06",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            {
+              "Ref": "RailwayApiDeploymentStageprod240E8A25",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "RailwayApiAE06EA06": {
+      "Properties": {
+        "Name": "RailwayApi",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "RailwayApiAccount3299172F": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "RailwayApiAE06EA06",
+      ],
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "RailwayApiCloudWatchRoleEC33B2C4",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "RailwayApiBookingsTable9D51DBB7": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "bookingId",
+            "AttributeType": "S",
+          },
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "bookingId",
+            "KeyType": "HASH",
+          },
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5,
+        },
+        "TableName": "BookingsTable",
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "RailwayApiCloudWatchRoleEC33B2C4": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "RailwayApiCreateBooking650115F5": {
+      "DependsOn": [
+        "RailwayApiCreateBookingServiceRoleDefaultPolicy61360D73",
+        "RailwayApiCreateBookingServiceRole6A843D6F",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "84535f49054c62419f9dee05f0dbbf30f07a041e73b4351fe83544854cd16548.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "BOOKINGS_TABLE": {
+              "Ref": "RailwayApiBookingsTable9D51DBB7",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "RailwayApiCreateBookingServiceRole6A843D6F",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "RailwayApiCreateBookingServiceRole6A843D6F": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RailwayApiCreateBookingServiceRoleDefaultPolicy61360D73": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiBookingsTable9D51DBB7",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiTrainsTable0B8AE648",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RailwayApiCreateBookingServiceRoleDefaultPolicy61360D73",
+        "Roles": [
+          {
+            "Ref": "RailwayApiCreateBookingServiceRole6A843D6F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RailwayApiDeploymentEDC2E6AB341b7c83c59b244302ef47cf3f6ea754": {
+      "DependsOn": [
+        "RailwayApibookingsbookingIdGET63881E65",
+        "RailwayApibookingsbookingIdOPTIONS0E8785F1",
+        "RailwayApibookingsbookingIdPATCHFDA125C9",
+        "RailwayApibookingsbookingIdDA9405B3",
+        "RailwayApibookingsOPTIONS9F6A6E9B",
+        "RailwayApibookingsPOST5C8F2618",
+        "RailwayApibookings9050E7AF",
+        "RailwayApiOPTIONSDA24A9FB",
+        "RailwayApitrainstrainIdGET6DBCB075",
+        "RailwayApitrainstrainIdOPTIONS4015D082",
+        "RailwayApitrainstrainIdB0CA9D9C",
+        "RailwayApitrainsGET90395D7B",
+        "RailwayApitrainsOPTIONS72E1582A",
+        "RailwayApitrainsE7811D80",
+      ],
+      "Properties": {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "RailwayApiDeploymentStageprod240E8A25": {
+      "DependsOn": [
+        "RailwayApiAccount3299172F",
+      ],
+      "Properties": {
+        "DeploymentId": {
+          "Ref": "RailwayApiDeploymentEDC2E6AB341b7c83c59b244302ef47cf3f6ea754",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "RailwayApiGetBookingD947CFDB": {
+      "DependsOn": [
+        "RailwayApiGetBookingServiceRoleDefaultPolicy3B03564F",
+        "RailwayApiGetBookingServiceRole95B2271D",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "0abcdc08e8b870496bf68c3a52e7568955abe8864a6a643347a96ddd67e293a8.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "BOOKINGS_TABLE": {
+              "Ref": "RailwayApiBookingsTable9D51DBB7",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "RailwayApiGetBookingServiceRole95B2271D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "RailwayApiGetBookingServiceRole95B2271D": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RailwayApiGetBookingServiceRoleDefaultPolicy3B03564F": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiBookingsTable9D51DBB7",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RailwayApiGetBookingServiceRoleDefaultPolicy3B03564F",
+        "Roles": [
+          {
+            "Ref": "RailwayApiGetBookingServiceRole95B2271D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RailwayApiGetTrain325F65D1": {
+      "DependsOn": [
+        "RailwayApiGetTrainServiceRoleDefaultPolicyE004C05E",
+        "RailwayApiGetTrainServiceRole8DC35343",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "cb9899fcd86e0e770570fb901dd84add3aa76b1cd89d8a164072dff0915aa064.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "TRAINS_TABLE": {
+              "Ref": "RailwayApiTrainsTable0B8AE648",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "RailwayApiGetTrainServiceRole8DC35343",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "RailwayApiGetTrainServiceRole8DC35343": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RailwayApiGetTrainServiceRoleDefaultPolicyE004C05E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiTrainsTable0B8AE648",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RailwayApiGetTrainServiceRoleDefaultPolicyE004C05E",
+        "Roles": [
+          {
+            "Ref": "RailwayApiGetTrainServiceRole8DC35343",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RailwayApiListTrains471C12FA": {
+      "DependsOn": [
+        "RailwayApiListTrainsServiceRoleDefaultPolicyE78ED918",
+        "RailwayApiListTrainsServiceRole9302345B",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c0a6d2be10fb6c677f5d4d865327f15ce6ba1cd3349d1686c60d127130129442.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "TRAINS_TABLE": {
+              "Ref": "RailwayApiTrainsTable0B8AE648",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "RailwayApiListTrainsServiceRole9302345B",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "RailwayApiListTrainsServiceRole9302345B": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RailwayApiListTrainsServiceRoleDefaultPolicyE78ED918": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiTrainsTable0B8AE648",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RailwayApiListTrainsServiceRoleDefaultPolicyE78ED918",
+        "Roles": [
+          {
+            "Ref": "RailwayApiListTrainsServiceRole9302345B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RailwayApiOPTIONSDA24A9FB": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+                "method.response.header.Vary": "'Origin'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Vary": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "RailwayApiAE06EA06",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApiTrainsTable0B8AE648": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "trainId",
+            "AttributeType": "S",
+          },
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "trainId",
+            "KeyType": "HASH",
+          },
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5,
+        },
+        "TableName": "TrainsTable",
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "RailwayApiUpdateBookingStatus702A09CB": {
+      "DependsOn": [
+        "RailwayApiUpdateBookingStatusServiceRoleDefaultPolicyEF107569",
+        "RailwayApiUpdateBookingStatusServiceRole1944458A",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "708d6b2fb349b69864b4010842d431ad2d85cae6ca22b38da0ef14e69251264f.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "BOOKINGS_TABLE": {
+              "Ref": "RailwayApiBookingsTable9D51DBB7",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "RailwayApiUpdateBookingStatusServiceRole1944458A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "RailwayApiUpdateBookingStatusServiceRole1944458A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RailwayApiUpdateBookingStatusServiceRoleDefaultPolicyEF107569": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiBookingsTable9D51DBB7",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiTrainsTable0B8AE648",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RailwayApiUpdateBookingStatusServiceRoleDefaultPolicyEF107569",
+        "Roles": [
+          {
+            "Ref": "RailwayApiUpdateBookingStatusServiceRole1944458A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RailwayApibookings9050E7AF": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "RailwayApiAE06EA06",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "bookings",
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "RailwayApibookingsOPTIONS9F6A6E9B": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+                "method.response.header.Vary": "'Origin'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Vary": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "RailwayApibookings9050E7AF",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApibookingsPOST5C8F2618": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "POST",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiCreateBooking650115F5",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "RailwayApibookings9050E7AF",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApibookingsPOSTApiPermissionTestRailwayTicketingStackRailwayApi8C85A29FPOSTbookingsB0EE4B29": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiCreateBooking650115F5",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/",
+              {
+                "Ref": "RailwayApiDeploymentStageprod240E8A25",
+              },
+              "/POST/bookings",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApibookingsPOSTApiPermissionTestTestRailwayTicketingStackRailwayApi8C85A29FPOSTbookings0D186C9B": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiCreateBooking650115F5",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/test-invoke-stage/POST/bookings",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApibookingsbookingIdDA9405B3": {
+      "Properties": {
+        "ParentId": {
+          "Ref": "RailwayApibookings9050E7AF",
+        },
+        "PathPart": "{bookingId}",
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "RailwayApibookingsbookingIdGET63881E65": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiGetBookingD947CFDB",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "RailwayApibookingsbookingIdDA9405B3",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApibookingsbookingIdGETApiPermissionTestRailwayTicketingStackRailwayApi8C85A29FGETbookingsbookingIdA36A0BFD": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiGetBookingD947CFDB",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/",
+              {
+                "Ref": "RailwayApiDeploymentStageprod240E8A25",
+              },
+              "/GET/bookings/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApibookingsbookingIdGETApiPermissionTestTestRailwayTicketingStackRailwayApi8C85A29FGETbookingsbookingIdDFE98D46": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiGetBookingD947CFDB",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/test-invoke-stage/GET/bookings/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApibookingsbookingIdOPTIONS0E8785F1": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+                "method.response.header.Vary": "'Origin'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Vary": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "RailwayApibookingsbookingIdDA9405B3",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApibookingsbookingIdPATCHApiPermissionTestRailwayTicketingStackRailwayApi8C85A29FPATCHbookingsbookingId6FC086FA": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiUpdateBookingStatus702A09CB",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/",
+              {
+                "Ref": "RailwayApiDeploymentStageprod240E8A25",
+              },
+              "/PATCH/bookings/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApibookingsbookingIdPATCHApiPermissionTestTestRailwayTicketingStackRailwayApi8C85A29FPATCHbookingsbookingIdFC7EE09E": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiUpdateBookingStatus702A09CB",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/test-invoke-stage/PATCH/bookings/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApibookingsbookingIdPATCHFDA125C9": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "PATCH",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiUpdateBookingStatus702A09CB",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "RailwayApibookingsbookingIdDA9405B3",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApitrainsE7811D80": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "RailwayApiAE06EA06",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "trains",
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "RailwayApitrainsGET90395D7B": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiListTrains471C12FA",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "RailwayApitrainsE7811D80",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApitrainsGETApiPermissionTestRailwayTicketingStackRailwayApi8C85A29FGETtrains10766430": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiListTrains471C12FA",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/",
+              {
+                "Ref": "RailwayApiDeploymentStageprod240E8A25",
+              },
+              "/GET/trains",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApitrainsGETApiPermissionTestTestRailwayTicketingStackRailwayApi8C85A29FGETtrainsADD51AD9": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiListTrains471C12FA",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/test-invoke-stage/GET/trains",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApitrainsOPTIONS72E1582A": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+                "method.response.header.Vary": "'Origin'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Vary": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "RailwayApitrainsE7811D80",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApitrainstrainIdB0CA9D9C": {
+      "Properties": {
+        "ParentId": {
+          "Ref": "RailwayApitrainsE7811D80",
+        },
+        "PathPart": "{trainId}",
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "RailwayApitrainstrainIdGET6DBCB075": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "RailwayApiGetTrain325F65D1",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "RailwayApitrainstrainIdB0CA9D9C",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "RailwayApitrainstrainIdGETApiPermissionTestRailwayTicketingStackRailwayApi8C85A29FGETtrainstrainId93D5D907": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiGetTrain325F65D1",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/",
+              {
+                "Ref": "RailwayApiDeploymentStageprod240E8A25",
+              },
+              "/GET/trains/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApitrainstrainIdGETApiPermissionTestTestRailwayTicketingStackRailwayApi8C85A29FGETtrainstrainId68FE55F0": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "RailwayApiGetTrain325F65D1",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "RailwayApiAE06EA06",
+              },
+              "/test-invoke-stage/GET/trains/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "RailwayApitrainstrainIdOPTIONS4015D082": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+                "method.response.header.Vary": "'Origin'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Vary": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "RailwayApitrainstrainIdB0CA9D9C",
+        },
+        "RestApiId": {
+          "Ref": "RailwayApiAE06EA06",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

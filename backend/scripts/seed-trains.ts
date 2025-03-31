@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { getDynamoDBDocClient } from '../src/infra/dynamodb';
 
-const getTomorrowDate = () => {
+export const getTomorrowDate = () => {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   return tomorrow.toISOString().split('T')[0];
@@ -90,7 +90,7 @@ const trainConfigs = [
   }
 ] as const;
 
-const generateTrains = () => {
+export const generateTrains = () => {
   const tomorrowDate = getTomorrowDate();
 
   return trainConfigs.map((config) => ({
@@ -110,7 +110,7 @@ const generateTrains = () => {
   }));
 };
 
-const seedTrains = async () => {
+export const seedTrains = async () => {
   const docClient = getDynamoDBDocClient();
   const trains = generateTrains();
 
