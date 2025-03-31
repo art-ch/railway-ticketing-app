@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Booking component should show demo notice for small screen 1`] = `
+<div>
+  <div>
+    This demo is intended to be shown on desktop
+  </div>
+</div>
+`;

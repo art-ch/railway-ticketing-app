@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingDataSkeleton component should be rendered correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col space-y-4"
+  >
+    <div
+      class="h-5 bg-gray-200 rounded animate-pulse w-1/2"
+    />
+    <div
+      class="grid grid-cols-[repeat(3,_180px)] gap-2"
+    >
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+    </div>
+    <div
+      class="h-5 bg-gray-200 rounded animate-pulse w-1/2"
+    />
+    <div
+      class="grid grid-cols-[repeat(3,_180px)] gap-2"
+    >
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+      <div
+        class="h-3 bg-gray-200 rounded animate-pulse"
+      />
+    </div>
+    <div
+      class="h-8 bg-gray-200 rounded animate-pulse w-45 space-x-5 ml-auto"
+    />
+  </div>
+</div>
+`;

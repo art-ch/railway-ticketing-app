@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Passenger Info component should render correctly 1`] = `
+<div>
+  <div>
+    <p
+      class="font-bold pb-1"
+    >
+      Passenger Info
+    </p>
+    <table
+      class="w-full"
+    >
+      <thead>
+        <tr
+          class="text-sm font-semibold"
+        >
+          <th
+            class="text-left min-w-45"
+          >
+            Name
+          </th>
+          <th
+            class="text-left min-w-45"
+          >
+            Email
+          </th>
+          <th
+            class="text-left min-w-45"
+          >
+            Phone
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            class="min-w-45"
+          >
+            gdjskalg
+          </td>
+          <td
+            class="min-w-45"
+          >
+            fgdjsalkg@gmail.com
+          </td>
+          <td
+            class="min-w-45"
+          >
+            5784397654645
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

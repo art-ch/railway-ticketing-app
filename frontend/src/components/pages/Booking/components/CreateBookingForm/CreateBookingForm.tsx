@@ -114,7 +114,10 @@ export const CreateBookingForm = ({
             disabled={isBookingBeingProcessed}
           >
             {isBookingBeingProcessed ? (
-              <LoaderCircle className="animate-spin" />
+              <LoaderCircle
+                className="animate-spin"
+                data-testid="loader-icon"
+              />
             ) : (
               <TicketIcon />
             )}

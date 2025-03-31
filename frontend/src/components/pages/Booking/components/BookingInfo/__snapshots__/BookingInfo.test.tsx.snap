@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingDataSkeleton component should be rendered correctly 1`] = `
+<div>
+  <div>
+    <p
+      class="font-bold pb-1"
+    >
+      Booking Info
+    </p>
+    <table
+      class="w-full"
+    >
+      <thead>
+        <tr
+          class="text-sm font-semibold"
+        >
+          <th
+            class="text-left"
+          >
+            Seat
+          </th>
+          <th
+            class="text-left"
+          >
+            Status
+          </th>
+          <th
+            class="text-left"
+          >
+            Booked at
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            CONFIRMED
+          </td>
+          <td>
+            2025-03-31 08:05
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component should render correctly 1`] = `
+<div>
+  <div>
+    <p
+      class="absolute left-4 top-4 border-2 border-black px-1"
+    >
+      22
+    </p>
+    <div
+      class="flex gap-2 items-baseline justify-center font-bold pb-2"
+    >
+      <p
+        class="text-sm"
+      >
+        art-ch railway
+      </p>
+      <p
+        class="text-lg border-l border-r border-black px-2"
+      >
+        Travel Document
+      </p>
+      <p
+        class="text-sm text-nowrap w-33"
+      >
+        ID #
+        1
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Header component should render correctly without bookingid 1`] = `
+<div>
+  <div>
+    <p
+      class="absolute left-4 top-4 border-2 border-black px-1"
+    >
+      22
+    </p>
+    <div
+      class="flex gap-2 items-baseline justify-center font-bold pb-2"
+    >
+      <p
+        class="text-sm"
+      >
+        art-ch railway
+      </p>
+      <p
+        class="text-lg border-l border-r border-black px-2"
+      >
+        Travel Document
+      </p>
+      <p
+        class="text-sm px-2 text-gray-300"
+      >
+        booking id
+      </p>
+    </div>
+  </div>
+</div>
+`;

@@ -12,8 +12,6 @@ import { DemoWrapper } from '@/components/DemoWrapper/DemoWrapper';
 export type HomeProps = { trainList: TrainType[] };
 
 export const Home = ({ trainList }: HomeProps) => {
-  console.log('render');
-
   return (
     <DemoWrapper>
       <main className="min-w-screen min-h-screen bg-slate-50 flex items-center justify-center">

@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Train component should demo notice for small screen 1`] = `
-<div>
-  <div>
-    This demo is intended to be shown on desktop
-  </div>
-</div>
-`;
-
 exports[`Train component should render correctly 1`] = `
 <div>
   <main>
@@ -18,7 +10,7 @@ exports[`Train component should render correctly 1`] = `
         class="border border-slate-300 rounded-xl p-7 grid grid-cols-5 gap-x-7 gap-y-10"
       >
         <a
-          class="border border-slate-300 rounded-sm p-1 text-center text-5xl cursor-pointer  text-white bg-emerald-800"
+          class="border border-slate-300 rounded-sm p-1 text-center text-5xl cursor-pointer text-white bg-emerald-800"
           href="/1/1"
         >
           1
@@ -26,5 +18,21 @@ exports[`Train component should render correctly 1`] = `
       </div>
     </div>
   </main>
+</div>
+`;
+
+exports[`Train component should render correctly without train data 1`] = `
+<div>
+  <div>
+    Train not found
+  </div>
+</div>
+`;
+
+exports[`Train component should show demo notice for small screen 1`] = `
+<div>
+  <div>
+    This demo is intended to be shown on desktop
+  </div>
 </div>
 `;

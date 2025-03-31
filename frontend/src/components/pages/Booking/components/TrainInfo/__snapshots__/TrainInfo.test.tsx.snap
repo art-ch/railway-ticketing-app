@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingDataSkeleton component should be rendered correctly 1`] = `
+<div>
+  <div>
+    <p
+      class="font-bold pb-1"
+    >
+      Train Info
+    </p>
+    <table
+      class="w-full"
+    >
+      <thead>
+        <tr
+          class="text-sm font-semibold"
+        >
+          <th
+            class="text-left w-[100px]"
+          >
+            Type
+          </th>
+          <th
+            class="text-left w-[175px]"
+          >
+            Origin
+          </th>
+          <th
+            class="text-left w-[175px]"
+          >
+            Destination
+          </th>
+          <th
+            class="text-left w-[50px]"
+          >
+            Dep.
+          </th>
+          <th
+            class="text-left w-[50px]"
+          >
+            Arr.
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            local
+          </td>
+          <td>
+            Kyiv
+          </td>
+          <td>
+            Odesa
+          </td>
+          <td>
+            08:05
+          </td>
+          <td>
+            18:05
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
+exports[`BookingDataSkeleton component should be rendered correctly when there is no data 1`] = `<div />`;

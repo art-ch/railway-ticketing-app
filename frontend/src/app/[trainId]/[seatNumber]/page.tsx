@@ -1,6 +1,6 @@
 import { Booking } from '@/components/pages/Booking/Booking';
 import React from 'react';
-import { BookingPageProvider } from './context/context';
+import { BookingPageProvider } from './context';
 
 export type SeatBookingPageProps = {
   params: { seatNumber: string };

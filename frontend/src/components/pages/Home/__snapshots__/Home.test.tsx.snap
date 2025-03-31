@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home component should demo notice for small screen 1`] = `
-<div>
-  <div>
-    This demo is intended to be shown on desktop
-  </div>
-</div>
-`;
-
 exports[`Home component should render correctly 1`] = `
 <div>
   <main
@@ -37,7 +29,7 @@ exports[`Home component should render correctly 1`] = `
                   <div
                     class="text-white text-5xl p-3 font-dot-matrix font-bold"
                   >
-                    2025-03-28
+                    2023-01-01
                   </div>
                 </div>
               </div>
@@ -105,5 +97,13 @@ exports[`Home component should render correctly 1`] = `
       </div>
     </article>
   </main>
+</div>
+`;
+
+exports[`Home component should show demo notice for small screen 1`] = `
+<div>
+  <div>
+    This demo is intended to be shown on desktop
+  </div>
 </div>
 `;

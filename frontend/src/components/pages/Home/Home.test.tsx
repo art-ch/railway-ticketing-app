@@ -23,6 +23,30 @@ const useBreakpointMock = useBreakpoint as jest.MockedFunction<
 >;
 
 describe('Home component', () => {
+  // Store the original Date
+  const originalDate = global.Date;
+
+  // Setup mock date before tests
+  beforeAll(() => {
+    // Mock the Date to return a fixed date
+    const mockDate = new Date('2023-01-01T12:00:00Z');
+    global.Date = class extends Date {
+      constructor() {
+        super();
+        return mockDate;
+      }
+
+      static now() {
+        return mockDate.getTime();
+      }
+    } as DateConstructor;
+  });
+
+  // Restore original Date after tests
+  afterAll(() => {
+    global.Date = originalDate;
+  });
+
   const trainList = [
     { trainId: '1', seats: [{ seatNumber: 1, isBooked: false }] }
   ] as Train[];
@@ -33,7 +57,7 @@ describe('Home component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should demo notice for small screen', () => {
+  it('should show demo notice for small screen', () => {
     useBreakpointMock.mockReturnValue({ xl: false } as BreakpointState);
 
     const { container } = render(<Home trainList={trainList} />);

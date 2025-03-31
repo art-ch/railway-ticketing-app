@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Seat component should render correctly when seat is booked 1`] = `
+<div>
+  <a
+    class="border border-slate-300 rounded-sm p-1 text-center text-5xl cursor-pointer text-white bg-amber-500"
+    href="/1/1"
+  >
+    1
+  </a>
+</div>
+`;
+
+exports[`Seat component should render correctly when seat is not booked 1`] = `
+<div>
+  <a
+    class="border border-slate-300 rounded-sm p-1 text-center text-5xl cursor-pointer text-white bg-emerald-800"
+    href="/1/1"
+  >
+    1
+  </a>
+</div>
+`;

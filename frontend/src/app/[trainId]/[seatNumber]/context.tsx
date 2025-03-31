@@ -7,7 +7,7 @@ import {
   useEffect,
   useState
 } from 'react';
-import { useTrainPageContext } from '../../context';
+import { useTrainPageContext } from '../context';
 import { Booking as BookingType } from 'railway-ticketing-app-sdk';
 import { axiosInstance } from '@/api/axios/axios';
 

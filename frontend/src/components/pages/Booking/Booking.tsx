@@ -9,7 +9,7 @@ import { BookingInfo } from './components/BookingInfo/BookingInfo';
 import { PassengerInfo } from './components/PassengerInfo/PassengerInfo';
 import { CancelBookingButton } from './components/CancelBookingButton/CancelBookingButton';
 import { toast } from 'sonner';
-import { useBookingPageContext } from '@/app/[trainId]/[seatNumber]/context/context';
+import { useBookingPageContext } from '@/app/[trainId]/[seatNumber]/context';
 import { BookingDataSkeleton } from './components/BookingDataSkeleton/BookingDataSkeleton';
 import { DemoWrapper } from '@/components/DemoWrapper/DemoWrapper';
 

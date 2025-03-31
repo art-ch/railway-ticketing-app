@@ -23,24 +23,14 @@ const config: Config = {
   coveragePathIgnorePatterns: [
     // --- shadcn stuff --- //
     '<rootDir>/src/components/ui/',
-    '<rootDir>/src/hooks/use-mobile.tsx',
+    '<rootDir>/src/lib/utils.ts',
     // -------------------- //
 
-    // everything outside components, context and layout folders is tested through children
-    '<rootDir>/src/app/[^/]+\\.(js|jsx|ts|tsx)$',
-
-    '.*\\.model\\.ts$',
-    '/index\\.ts$',
-
-    // page.tsx files are tested through children components. No page have async logic at the moment
-    '/page\\.tsx$'
+    '/index\\.ts$'
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jsdom',
   collectCoverageFrom: [
-    'app/components/**/*.{js,jsx,ts,tsx}',
-    'app/context/**/*.{js,jsx,ts,tsx}',
-    'app/layout/**/*.{js,jsx,ts,tsx}',
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!**/node_modules/**'
