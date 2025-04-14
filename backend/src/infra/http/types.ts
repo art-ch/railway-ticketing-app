@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, Handler } from 'aws-lambda';
 
-type APIGatewayHandlerResponse = {
+export type APIGatewayHandlerResponse = {
   statusCode: number;
   body: unknown;
 };
