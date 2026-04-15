@@ -1,6 +1,6 @@
 # 🚆 Railway Ticketing System
 
-A full-stack, type-safe Monorepo designed for high-availability ticketing operations. This project demonstrates a **Contract-First** approach to system design, ensuring that the Frontend and Backend are always in sync through a shared SDK.
+A full-stack, type-safe Monorepo designed for railway ticketing operations. This project demonstrates a **Contract-First** approach to system design, ensuring that the Frontend and Backend are always in sync through a shared SDK. UI Inspired by https://booking.uz.gov.ua/.
 
 ## 🏗️ System Overview
 The system is built on three core pillars:
