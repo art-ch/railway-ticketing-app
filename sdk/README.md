@@ -1,21 +1,29 @@
-This SDK is the Single Source of Truth for the system. It contains the shared TypeScript interfaces used by the Frontend and Backend to ensure type-safety across the network boundary.
+# Railway Ticketing SDK
+### Purpose 
 
-To use this SDK, install it via npm<br>
-`npm i railway-ticketing-app-sdk`
+This SDK is the Single Source of Truth for the system. It contains shared TypeScript interfaces and Zod schemas used by both the Frontend and Backend to ensure type-safety and data integrity across the network boundary.
 
-This SDK uses Zod for runtime validation. All models are exported as both Zod Schemas and TypeScript Types. This ensures that data entering the system is validated at the boundary. All models are located in `sdk/src/models`
+### Installation 
 
-Usage Example:
-```
+Install the package via npm to use the models and clients in your service:
+npm i railway-ticketing-app-sdk
+
+### Models & Validation 
+
+All system entities are defined in sdk/src/models. The SDK exports:
+Zod Schemas: For runtime validation at the API Gateway or Form level.
+TypeScript Types: For compile-time safety across the codebase.
+
+### Usage Example 
+```typescript
 import { BookingSchema, Booking } from 'railway-ticketing-app-sdk';
 
-// 1. Runtime Validation (e.g., in a Lambda or Form)
+// Runtime Validation
 const result = BookingSchema.safeParse(data);
 
 if (!result.success) {
-  console.error("Invalid Booking Data:", result.error.format());
+console.error("Invalid Booking Data:", result.error.format());
 }
 
-// 2. Compile-time Type Safety
+// Compile-time Type Safety
 const myBooking: Booking = result.data;
-```
